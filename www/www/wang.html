@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wangjie</title>
+    <link rel="stylesheet" type="text/css" href="sss/wang.css"/>
+</head>
+<body>
+    <div class="wrap baohuayulan" id="wrap">
+        <div class="wang">
+            <h1 style="font-size:20px;text-align:center;margin-bottom: 10px; margin-left: -30px;">实训任务</h1>
+            <p>● 虚拟机的环境搭建</p>
+            <p>● 相通服务器与客户机 </p>
+            <p>● 编写自我网页介绍</p>
+            <p>● 文档撰写</p>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+        <div class="shard-wrap">
+          <div class="shard"></div>
+        </div>
+      </div>
+</body>
+</html>
+<script>
+    var $plant = document.querySelector('#wrap');
+var stateInterval = 2500; // 2500ms 更换一种状态
+var plantInterval = stateInterval*3; // 更换植物的间隔
+var plantList = [
+  'baohuayulan',
+  'boleshu',
+  'changruimulan',
+  'chiguoyoushu',
+  'ezhangqiu',
+  'gongtong',
+  'hongdoushan',
+  'houmianbaoshu',
+  'jinhuacha',
+  'putuoeerli',
+  'shuiqingshu',
+  'shuishan',
+  'suoluo',
+  'xishu',
+  'yinshan'
+];
+var index = 0;
+
+setInterval(function(){
+  $plant.classList.toggle('state-two');
+}, stateInterval);
+
+setInterval(function(){
+  $plant.className = 'wrap'; // 清除类
+  index = (++index === plantList.length) ? 0 : index;
+  $plant.classList.add(plantList[index]);
+}, plantInterval);
+</script>

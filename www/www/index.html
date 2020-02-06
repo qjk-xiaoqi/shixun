@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>登录</title>
+	 <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style/login.css"/>
+
+	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.8.custom.min.js"></script>
+	<script type="text/javascript" src="js/treddi.js"></script>
+	<script type="text/javascript" src="js/cookie.js"></script>
+	<script> 
+ 
+
+		function handle()
+		{
+			if($("#name").val() == "")
+			{
+				alert("请输入登录名！");
+			}
+			else if($("#passwd").val() == "")
+			{
+				alert("请输入正确的密码！");
+			}
+			else
+			{
+				$(".button").html("<b>登录中...</b>");
+				$.post("cgi-bin/login",{username:$("#name").val(),passwd:$("#passwd").val()},function(data,textStatus)
+				{
+					if(data.loginStatus == "errorDB")
+					{
+						alert("errorDB!");
+					}
+					if(data.loginStatus == "error")
+					{
+						alert("error：请重新输入登录名和密码");
+						$(".button").html("<b>登录</b>");
+						$("#name").val("");
+						$("#passwd").val("");
+					}
+					if(data.loginStatus == "ok")
+					{
+						CookieUtil.set("username",$("#name").val());
+						CookieUtil.set("passwd",$("#passwd").val());
+						window.location.href ="aboutUs.html";
+					}
+				});
+			}
+		}
+		
+		$(document).ready(function()
+		{
+			$('#ddd').dddgallery({		
+				//dimensioni box_principale
+				p_width: 420,
+				//impostazioni di default dei mini-box
+				min_width: 150,
+				max_width: 300,
+				porp_height: 0,
+				min_opacity: 0.2,
+				livel_range: 20	
+			});
+			$(".button").bind("click",handle);
+		});
+		
+		$(function()
+		{
+			CookieUtil.delete("username");
+			CookieUtil.delete("passwd");
+		});
+		
+		document.onkeydown = function(oEvent)
+		{
+			oEvent = oEvent || window.event;
+			var currKey = oEvent.keyCode || oEvent.which || oEvent.charCode;
+			if(currKey == 13)
+			{
+				// handle();
+				window.location.href ="aboutUs.html";
+			}
+		}
+		 
+		
+	</script>
+</head>
+
+<body>
+	<div class="pen-title">
+        <h1>System Login Form</h1>
+    </div>
+    <div class="rerun">
+        <a href="">Return Login <i class="mdi mdi-login:"></i></a>
+    </div>
+    <div class="container">
+        <div class="card"></div>
+        <div class="card">
+            <h1 class="title">Login</h1>
+            <form>
+                <div class="input-container">
+                    <input type="#{type}" id="name" required="required"/>
+                    <label for="name">Username</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="#{type}" id="passwd" required="required"/>
+                    <label for="passwd">Password</label><div class="bar">
+                </div>
+                </div>
+                <div class="button-container">
+                    <button class="button"><span>Go</span></button>
+                </div>
+                <div class="footer">
+                    <a href="#">Forgot your password?</a>
+                </div>
+            </form>
+        </div>
+        <div class="card alt">
+            <div class="toggle"></div>
+            <h1 class="title">Register<div class="close"></div></h1>
+            <form>
+                <div class="input-container">
+                    <input type="#{type}" id="#{label}" required="required"/>
+                    <label for="#{label}">Username</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="#{type}" id="#{label}" required="required"/>
+                    <label for="#{label}">Password</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="input-container">
+                    <input type="#{type}" id="#{label}" required="required"/>
+                    <label for="#{label}">Repeat Password</label>
+                    <div class="bar"></div>
+                </div>
+                <div class="button-container">
+                    <button><span>Next</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Portfolio-->
+    <a id="portfolio" href=" http://www.hbnu.edu.cn/" title="View my school!">
+        <i class="fa fa-link"></i>
+    </a>
+    <!-- CodePen-->
+    <a id="codepen" href="" title="Follow me!">
+        <i class="fa fa-codepen"></i>
+    </a>
+</body>
+</html>
+<script>
+	$('.toggle').on('click', function() {
+	$('.container').stop().addClass('active');
+	});
+
+	$('.close').on('click', function() {
+	$('.container').stop().removeClass('active');
+});
+</script>

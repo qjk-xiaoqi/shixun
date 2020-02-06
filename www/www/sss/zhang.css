@@ -1,0 +1,218 @@
+@charset "UTF-8";
+.deco:before, .deco:after, .tree:before, .tree:after, .row, .row:before, .row:after, .branch, .row:last-child .branch:after, .branch li, .branch ul:after, .branch:after, .leaf:before, .leaf:after {
+  animation: a 4s ease-in-out alternate infinite;
+}
+
+.row {
+  animation-name: ymov;
+}
+
+.branch, .branch li, .branch ul:after, .branch:after {
+  animation-name: zrot;
+}
+
+.tree:before, .tree:after, .row:before, .row:after, .leaf:before, .leaf:after {
+  animation-name: fade;
+}
+
+@keyframes xmov {
+  to {
+    transform: translate(-25%);
+  }
+}
+@keyframes ymov {
+  0%, 42.5% {
+    transform: translatey(0);
+  }
+  57.5%, 100% {
+    transform: translatey(calc(var(--i)*2em*(1.4 - 1)));
+  }
+}
+@keyframes xrot {
+  0%, 42.5% {
+    transform: perspective(35em) translatez(-4em) rotatex(0deg) translatez(4em) rotatex(0deg);
+  }
+  57.5%, 100% {
+    transform: perspective(35em) translatez(-4em) rotatex(calc(var(--sgnp)*.5turn)) translatez(4em) rotatex(calc(var(--sgnp)*-.5turn));
+  }
+}
+@keyframes zrot {
+  0%, 42.5% {
+    transform: rotate(0deg);
+  }
+  57.5%, 100% {
+    transform: rotate(calc(var(--sgnk)*45deg));
+  }
+}
+@keyframes fade {
+  0%, 42.5% {
+    opacity: 0;
+  }
+  57.5% {
+    opacity: 1;
+  }
+}
+*, :before, :after {
+  --notk: calc(1 - var(--k));
+  --sgnk: calc(var(--sgnl, 1)*(1 - 2*var(--k)));
+  --sgnp: calc(1 - 2*var(--p));
+  margin: 0;
+  padding: 0;
+  min-width: 2em;
+  min-height: 2em;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  background: url(https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ) 50%/cover #ccc;
+  background-blend-mode: overlay;
+  font: 900 calc(25vmin/(var(--n) + 2))/ 2 monospace;
+  text-align: center;
+}
+body:after {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: crimson;
+  font-size: 1.5em;
+  letter-spacing: 1em;
+  text-shadow: 0 0 1px #000, 0 0 2px #000;
+  white-space: nowrap;
+  animation: xmov 18.8s linear infinite;
+  content: "🕯️🦌🛷🎅❄️☃️⛄️merry✨fucking✨christmas!🕯️🦌🛷🎅❄️☃️⛄️🕯️🦌🛷🎅❄️☃️⛄️merry✨fucking✨christmas!🕯️🦌🛷🎅❄️☃️⛄️🕯️🦌🛷🎅❄️☃️⛄️merry✨fucking✨christmas!🕯️🦌🛷🎅❄️☃️⛄️🕯️🦌🛷🎅❄️☃️⛄️merry✨fucking✨christmas!🕯️🦌🛷🎅❄️☃️⛄️";
+}
+
+ul {
+  list-style: none;
+}
+
+.deco {
+  padding-bottom: calc((1.4 - 1)*(var(--n) - 1)*2em);
+  transform-style: preserve-3d;
+}
+.deco:before, .deco:after {
+  --p: 0;
+  grid-row: 1;
+  grid-column: 1;
+  margin: 2em;
+  border-radius: .5em;
+  box-shadow: 0 0 .5em #fff, 0 0 .25em #fff;
+  background: rgba(255, 255, 255, 0.75);
+  font-size: 1.25em;
+  animation-name: xrot, fade;
+  counter-reset: n var(--n);
+  content: "grid: n·n = n² = " counter(n) "²";
+}
+.deco:before {
+  --p: 1;
+  animation-direction: alternate-reverse;
+  counter-reset: n var(--n);
+  content: "incr. rows: 1 + 3 + ... + (2·" counter(n) " - 1) = ∑(2·i - 1)";
+}
+
+.star {
+  font-size: 2em;
+}
+
+.tree {
+  position: relative;
+}
+.tree:before, .tree:after {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  animation-direction: alternate-reverse;
+  content: "row number:";
+}
+.tree:after {
+  right: 0;
+  left: auto;
+  content: "items/ row (2·i - 1):";
+}
+
+ul:not(.tree) {
+  display: grid;
+}
+
+.row {
+  --p: 0;
+  position: relative;
+  counter-reset: i calc(var(--i) + 1) o calc(2*var(--i) + 1);
+}
+.row:nth-child(2n) {
+  --p: 1 ;
+}
+.row > ul {
+  place-content: center;
+  grid-template-columns: repeat(3, max-content);
+  grid-auto-flow: row dense;
+}
+.row:before, .row:after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 .5em;
+  animation-direction: alternate-reverse;
+  content: counter(o);
+}
+.row:before {
+  left: 0;
+  bottom: 0;
+  background: hsl(0, 0%, calc(85% + (1 - 2*var(--p))*5%));
+  text-align: left;
+  content: counter(i);
+}
+
+.mid {
+  grid-column: 2;
+}
+
+.branch {
+  transform-origin: calc(var(--notk)*100% + var(--sgnk)*1em);
+}
+.row:last-child .branch {
+  position: relative;
+}
+.row:last-child .branch:after {
+  position: absolute;
+  top: 100%;
+  left: calc(50% - 1em);
+  box-shadow: 0 4px crimson;
+  text-align: center;
+  animation-name: zrot, fade;
+  counter-reset: n var(--n);
+  content: counter(n);
+}
+.branch li, .branch ul:after, .branch:after {
+  --sgnl: -1;
+}
+.branch ul {
+  grid-template-columns: repeat(calc(var(--i) + 1), max-content);
+}
+.branch ul:after {
+  grid-row: 1;
+  grid-column: calc(var(--i)*var(--k) + 1);
+  animation-name: zrot, fade;
+  content: counter(i);
+}
+
+.leaf {
+  overflow: hidden;
+  position: relative;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px hsl(calc(var(--p)*120), 50%, 25%);
+  background: hsl(calc(var(--p)*120), 50%, 75%);
+}
+.leaf:before, .leaf:after {
+  position: absolute;
+  left: 0;
+  content: '🎄🎀';
+}
+.row:nth-child(odd) .leaf:before, .row:nth-child(odd) .leaf:after {
+  bottom: 0;
+}
+.leaf:before {
+  animation-direction: alternate-reverse;
+  content: "🌲🎁";
+}
